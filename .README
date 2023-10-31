@@ -1,0 +1,71 @@
+Docker commands:
+Always use sudo for some reason
+
+# Build the app 
+sudo docker-compose build
+
+
+# Run the app
+sudo docker-compose up
+
+# Migrate database in the app
+sudo docker-compose run web python manage.py createsuperuser
+sudo docker-compose run web python manage.py makemigrations
+sudo docker-compose run web python manage.py migrate
+sudo docker-compose run web python manage.py startapp core
+sudo docker-compose run web python manage.py flush
+
+
+
+GET JWT TOKENS in REACTJS:
+
+STEP 1
+npm install js-cookie
+
+STEP 2
+import Cookies from 'js-cookie';
+
+STEP 3
+  const login = () => {
+    const loginData = {
+      username: 'username',
+      password: 'password',
+    };
+    
+    axios.post('http://localhost:8080/core/api/login/', loginData)
+      .then((res) => {
+            Cookies.set('accessToken', yourAccessToken, { expires: yourAccessTokenExpiration });
+            Cookies.set('refreshToken', yourRefreshToken, { expires: yourRefreshTokenExpiration });
+      })
+      .catch((error) => {
+        console.error('Authentication Error:', error);
+      });
+}
+
+MAKE AUTHORIZED REQUEST IN REACTJS
+
+    # only needed if method is put
+    let data = {
+        "id": 1,
+        "registration_type": "BREASTFEED",
+        "start_time": "2023-10-24T10:53:00Z",
+        "end_time": "2023-10-26T10:53:00Z",
+        "breast_side": "LEFT",
+        "user": 1
+    } 
+
+    const API_ENDPOINT = 'http://localhost:8080/core/api/registrations/1/';
+    const JWT_TOKEN = Cookies.get('accessToken');
+
+    axios.put(API_ENDPOINT, data, {
+          headers: {
+            Authorization: `Bearer ${JWT_TOKEN}`, // Use "Bearer" instead of "Token"
+            'Content-Type': 'application/json', // Adjust the content type if necessary.
+          },
+        })
+          .then((response) => {
+            console.log('Response Data:', response.data);
+          })
+          .catch((error) => {
+            console.error('Request Error:', error);
+          });

@@ -1,0 +1,14 @@
+version: '3'
+
+services:
+  web:
+    build: .
+    command: python manage.py runserver 0.0.0.0:8080
+    ports:
+      - "8080:8080"
+    volumes:
+      - .:/app
+    dns:
+      - 8.8.8.8  # Use Google's public DNS server
+  db:
+    image: postgres:13
