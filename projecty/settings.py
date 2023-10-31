@@ -135,7 +135,7 @@ USE_TZ = True
 STATIC_URL = '/static/'
 
 # The absolute filesystem path to the directory that will hold your static files.
-STATIC_ROOT = '/home/YorbenV/yorbenv.pythonanywhere.com/static_root/'
+STATIC_ROOT = '/home/YorbenV/yorbenv.pythonanywhere.com/static/'
 
 # Additional locations of static files
 STATICFILES_DIRS = [
