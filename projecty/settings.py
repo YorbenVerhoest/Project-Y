@@ -26,7 +26,7 @@ SECRET_KEY = 'django-insecure-upc62!c$yvk3gx56_kjs&@!w3crash*4$uo3v+6=2ba=)1f=ws
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ["178.117.59.17", "localhost", "192.168.0.100", "exp://192.168.215.72:19000", "192.168.215.72", "192.168.215.72:19000"]
+ALLOWED_HOSTS = ["178.117.59.17", "localhost", "192.168.0.100", "exp://192.168.215.72:19000", "192.168.215.72", "192.168.215.72:19000", "https://yorbenv.pythonanywhere.com/"]
 
 
 # Application definition
