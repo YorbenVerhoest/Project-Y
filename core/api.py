@@ -45,7 +45,8 @@ class BreastfeedRegistrationViewSet(viewsets.ModelViewSet):
 
     # Only get the queryset of the authenticated user
     def get_queryset(self):
-        user = self.request.user
-        queryset = core.BreastfeedRegistration.objects.filter(baby__user=user)
+        # user = self.request.user
+        # queryset = core.BreastfeedRegistration.objects.filter(baby__user=user)
+        queryset = core.BreastfeedRegistration.objects.filter()
 
         return queryset
