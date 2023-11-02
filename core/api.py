@@ -47,6 +47,10 @@ class BreastfeedRegistrationViewSet(viewsets.ModelViewSet):
     def get_queryset(self):
         # user = self.request.user
         # queryset = core.BreastfeedRegistration.objects.filter(baby__user=user)
-        queryset = core.BreastfeedRegistration.objects.filter()
+        try:
+            if self.request.query_params['type'] == 'list':
+                queryset = core.BreastfeedRegistration.objects.all()
+        except:
+            queryset = core.BreastfeedRegistration.objects.filter(end_time__isnull=True)
 
         return queryset
