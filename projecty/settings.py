@@ -133,14 +133,9 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/4.2/howto/static-files/
 
 STATIC_URL = '/static/'
+STATICFILES_DIRS = [os.path.join(BASE_DIR, 'static')]  # Replace 'static' with the actual directory containing your static files
+STATIC_ROOT = os.path.join(BASE_DIR, 'staticfiles')  # Replace 'staticfiles' with the directory of your choice
 
-# The absolute filesystem path to the directory that will hold your static files.
-STATIC_ROOT = '/home/YorbenV/yorbenv.pythonanywhere.com/static_root/'
-
-# Additional locations of static files
-STATICFILES_DIRS = [
-    os.path.join(BASE_DIR, 'static'),
-]
 
 # Default primary key field type
 # https://docs.djangoproject.com/en/4.2/ref/settings/#default-auto-field
