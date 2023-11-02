@@ -3,7 +3,7 @@ from core import models as core
 
 @admin.register(core.BreastfeedRegistration)
 class BreastfeedRegistrationAdmin(admin.ModelAdmin):
-    list_display = ["start_time", "end_time", "baby"]
+    list_display = ["start_time", "end_time", "breast_side", "baby"]
     raw_id_fields = ["baby"]
 
     fieldsets = (
