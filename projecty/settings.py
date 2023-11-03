@@ -11,7 +11,7 @@ https://docs.djangoproject.com/en/4.2/ref/settings/
 """
 
 from pathlib import Path
-from datetime import timedelta
+import datetime
 import os
 # Build paths inside the project like this: BASE_DIR / 'subdir'.
 BASE_DIR = Path(__file__).resolve().parent.parent
@@ -115,6 +115,14 @@ REST_FRAMEWORK = {
     'DEFAULT_AUTHENTICATION_CLASSES': (
         'rest_framework_simplejwt.authentication.JWTAuthentication',
     ),
+}
+
+JWT_AUTH = {
+    'JWT_RESPONSE_PAYLOAD_HANDLER': 'yourapp.utils.jwt_response_payload_handler',
+    'JWT_ALLOW_REFRESH': True,
+    'JWT_EXPIRATION_DELTA': datetime.timedelta(minutes=60),  # Access token expiration
+    'JWT_REFRESH_EXPIRATION_DELTA': datetime.timedelta(days=7),  # Refresh token expiration
+    'JWT_REFRESH_LEEWAY': datetime.timedelta(days=0),
 }
 
 # Internationalization

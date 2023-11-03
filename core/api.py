@@ -7,6 +7,7 @@ from rest_framework import viewsets
 from rest_framework_simplejwt.tokens import RefreshToken
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
+from rest_framework_jwt.views import RefreshJSONWebToken
 
 from core import serializers
 from core import models as core
@@ -36,6 +37,15 @@ class UserLoginView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
+class RefreshTokenView(RefreshJSONWebToken):
+    # Customize the response, if needed
+    def post(self, request, *args, **kwargs):
+        response = super().post(request, *args, **kwargs)
+        if response.status_code == status.HTTP_200_OK:
+            # Customize the response data as needed
+            # For example, add custom data to the response
+            response.data['custom_key'] = 'custom_value'
+        return response
 
 class BreastfeedRegistrationViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.BreastfeedRegistrationSerializer
