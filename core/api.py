@@ -5,13 +5,12 @@ from rest_framework.views import APIView
 from rest_framework.response import Response
 from rest_framework import viewsets
 from rest_framework_simplejwt.tokens import RefreshToken
-from rest_framework_simplejwt.authentication import JWTAuthentication
 from rest_framework.permissions import IsAuthenticated
 from rest_framework.authentication import TokenAuthentication
-from rest_framework_jwt.views import RefreshJSONWebToken
 
 from core import serializers
 from core import models as core
+from rest_framework_simplejwt.authentication import JWTAuthentication
 
 class UserLoginView(APIView):
     def post(self, request):
@@ -37,15 +36,23 @@ class UserLoginView(APIView):
             return Response(serializer.errors, status=status.HTTP_400_BAD_REQUEST)
 
 
-class RefreshTokenView(RefreshJSONWebToken):
-    # Customize the response, if needed
-    def post(self, request, *args, **kwargs):
-        response = super().post(request, *args, **kwargs)
-        if response.status_code == status.HTTP_200_OK:
-            # Customize the response data as needed
-            # For example, add custom data to the response
-            response.data['custom_key'] = 'custom_value'
-        return response
+
+class RenewAccessTokenView(APIView):
+    permission_classes = [IsAuthenticated]
+
+    def post(self, request):
+        refresh_token = request.data.get('refresh_token')
+
+        if refresh_token:
+            try:
+                # Validate the provided refresh token
+                refresh = RefreshToken(refresh_token)
+                access_token = str(refresh.access_token)
+                return Response({'access_token': access_token}, status=status.HTTP_200_OK)
+            except Exception as e:
+                return Response({'error': 'Invalid refresh token'}, status=status.HTTP_401_UNAUTHORIZED)
+        else:
+            return Response({'error': 'Refresh token not provided'}, status=status.HTTP_400_BAD_REQUEST)
 
 class BreastfeedRegistrationViewSet(viewsets.ModelViewSet):
     serializer_class = serializers.BreastfeedRegistrationSerializer

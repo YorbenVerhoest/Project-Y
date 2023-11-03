@@ -10,6 +10,6 @@ router.register(r'registrations', api.BreastfeedRegistrationViewSet, basename="B
 urlpatterns = [
     path('api/', include(router.urls)),
     path('api/login/', api.UserLoginView.as_view(), name='user-login'),
-    path('api/token/refresh/', api.RefreshTokenView.as_view(), name='token_refresh'),
+    path('api/token/renew/', api.RenewAccessTokenView.as_view(), name='token_renew'),
 
 ]
